@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="smileyface.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: sans-serif;
+      background-color: #ffffff;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #ffffff;
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 60px;
+    }
+
+    header img {
+      width: auto;
+      height: 220px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .subheader {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-weight: normal;
+      font-size: 24px;
+      color: #000000;
+      margin-top: 15px;
+    }
+
+    .site-footer {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-weight: normal;
+      background-color: #ffffff;
+      padding: 10px 0;
+      font-size: 18px;
+      color: #000000;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      header img { height: 150px; }
+    }
+
+    a { color: black; text-decoration: none; }
+    a:hover { color: black; text-decoration: underline; }
+
+    .site-footer .footer-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    .masonry {
+      column-count: 4;
+      column-gap: 15px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 10px 60px;
+    }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    .masonry-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .masonry-item img:hover { transform: scale(1.02); }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 40px;
+      overflow: auto;
+    }
+
+    .lightbox-content {
+      display: flex;
+      width: 100%;
+      max-width: 1000px;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-text {
+      color: #fff;
+      flex: 0 1 380px;
+      max-width: 400px;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .lightbox-text h2 { margin-bottom: 10px; }
+
+    .lightbox-media {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: 80vh;
+      width: 100%;
+    }
+
+    .lightbox-media img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+    }
+
+    .lightbox-video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      display: none;
+    }
+    .lightbox-video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .close-btn {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      font-size: 32px;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    @media (max-width: 1000px) { .masonry { column-count: 3; } }
+    @media (max-width: 700px)  { .masonry { column-count: 2; } }
+    @media (max-width: 500px)  { .masonry { column-count: 1; } }
+
+    @media (max-width: 768px) {
+      .lightbox {
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      .lightbox-content {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 16px;
+        max-width: 100%;
+        width: 100%;
+        transform: translateY(130px);
+      }
+
+      .lightbox-text { max-width: 100%; order: 2; }
+      .lightbox-media { order: 1; max-height: 70vh; width: 100%; }
+
+      .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 16px;
+        font-size: 28px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      #lightbox[data-media="skateboard portrait 2022.jpg"] .lightbox-content,
+      #lightbox[data-media="skateboard portrait 2024.jpg"] .lightbox-content {
+        transform: none;
+      }
+
+      #lightbox[data-media="skateboard portrait 2022.jpg"] .lightbox-media img,
+      #lightbox[data-media="skateboard portrait 2024.jpg"] .lightbox-media img {
+        max-height: 75vh;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="dsjc_visualarts_logo.png" alt="DSJC Logo">
+    <p class="subheader"></p>
+  </header>
+
+  <section class="masonry">
+    <div class="masonry-item"><img src="lunch money.jpg" alt="Lunch Money" onclick="openLightbox('lunch money.jpg', 'Lunch Money', 'Mixed media self portrait design. (2023)')"></div>
+    <div class="masonry-item"><img src="funtimeisover_poster.jpg" alt="FUNTIME IS OVER" onclick="openLightbox('funtimeisover_poster.jpg', 'FUNTIME IS OVER.', 'PSA Poster Design about climate change. (2024)')"></div>
+    <div class="masonry-item"><img src="project2_final_12stout.jpg" alt="12 Stout St Lyric Poster" onclick="openLightbox('project2_final_12stout.jpg', '12 Stout St Lyric Poster', 'Lyric Poster Concept Design for the song 12 Stout St by Rx Papi. (2023)')"></div>
+    <div class="masonry-item"><img src="USS NJ battle coin.jpg" alt="USS New Jersey Battle Coin Design" onclick="openLightbox('USS NJ battle coin.jpg', 'USS New Jersey Battle Coin Design', 'Battle Coin Design submitted for the USS New Jersey Battle Coin Contest, placed top 25. (2024)')"></div>
+    <div class="masonry-item"><img src="wyatt skateboard design.jpg" alt="Wyred In Sticker" onclick="openLightbox('wyatt skateboard design.jpg', 'Wyred In Sticker', 'Sticker design for clothing brand including mascot.')"></div>
+    <div class="masonry-item"><img src="digitalpawprint logo.jpg" alt="Digital Pawprint Logo" onclick="openLightbox('digitalpawprint logo.jpg', 'Digital Pawprint Logo', 'Logo design for a fictional brand concept as part of an assignment for a graphic design course. (2023)')"></div>
+    <div class="masonry-item"><img src="WLGY_lemonade_packagedesign.jpg" alt="Lemonade Packaging Design" onclick="openLightbox('WLGY_lemonade_packagedesign.jpg', 'Lemonade Packaging Design', 'Package Design for fictional lemonade brand concept as part of an assignment for a graphic design course. (2023)')"></div>
+    <div class="masonry-item"><img src="9to5_afterparty_poster.jpg" alt="9 to 5 Afterparty Poster" onclick="openLightbox('9to5_afterparty_poster.jpg', '9 to 5 Afterparty Poster', 'Poster Design for a fictional concert concept as part of an assignment for a graphic design course. (2024)')"></div>
+    <div class="masonry-item"><img src="bloodbath_movie_poster_final.jpg" alt="Bloodbath Poster" onclick="openLightbox('bloodbath_movie_poster_final.jpg', 'Bloodbath Poster', 'Poster Design for a challenge held at Kean University to create a poster using pictures of abstract paint. (2024)')"></div>
+    <div class="masonry-item"><img src="garrett bryan stem.jpg" alt="Garrett Bryan Stem" onclick="openLightbox('garrett bryan stem.jpg', 'Garrett Bryan Stem', 'Mixed media portrait. (2023)')"></div>
+    <div class="masonry-item"><img src="skateboard portrait 2022.jpg" alt="Skateboard Self Portrait 2024" onclick="openLightbox('skateboard portrait 2022.jpg', 'Skateboard Self Portrait 2024', 'Self portrait design on a skateboard deck as part of an assignment for a graphic design course. (2024)')"></div>
+    <div class="masonry-item"><img src="skateboard portrait 2024.jpg" alt="Skateboard Self Portrait 2025" onclick="openLightbox('skateboard portrait 2024.jpg', 'Skateboard Self Portrait 2025', 'Self portrait design on a skateboard deck as part of an assignment for a graphic design course. (2025)')"></div>
+    <div class="masonry-item"><img src="skillsUSA shirt pic 1.jpg" alt="SkillsUSA Shirt" onclick="openLightbox('skillsUSA shirt pic 1.jpg', 'SkillsUSA T-Shirt', 'T-Shirt Design created for the SkillsUSA T-Shirt Design Challenge. (2025)')"></div>
+    <div class="masonry-item"><img src="muchiframe.png" alt="WHO SAID? Music Video" onclick="openLightbox('https://www.youtube.com/embed/BT3YjAYRlzA?si=ntpbvZ9NSZ0IaLIQ', 'WHO SAID? by Muchi (Music Video)', 'animated & edited by me. (2024)')"></div>
+    <div class="masonry-item"><img src="gaoframe4.jpg" alt="BLEED Music Video" onclick="openLightbox('https://www.youtube.com/embed/bswiRSN_nhE?si=XP3WtTdhJJdVQwb_', 'Bleed by Gao The Arsonist (Music Video)', '3D modeled, textured, animated & edited by me. (2021)')"></div>
+    <div class="masonry-item"><img src="homeframe.jpg" alt="HOME VISUALIZER" onclick="openLightbox('https://www.youtube.com/embed/2v2fW5lwWVQ?si=9OlSQNHYJDgpG8fd', 'HOME by Gao The Arsonist (Visualizer)', '3D modeled, textured, animated & edited by me. (2022)')"></div>
+    <div class="masonry-item"><img src="caesarframe.jpg" alt="CAESAR VISUALIZER" onclick="openLightbox('https://www.youtube.com/embed/LwBmTMh4DnY?si=7nn-DXGX61HD6RP7', 'CAESAR by Gao The Arsonist (Visualizer)', '3D modeled, textured, animated & edited by me. (2022)')"></div>
+    <div class="masonry-item"><img src="muchi2frame.jpg" alt="FOR ME Music Video" onclick="openLightbox('https://www.youtube.com/embed/XlYyIZM2Is4?si=KvBmkRTgUM9XqhW8', 'FOR ME by Muchi (Music Video)', '3D modeled, animated & edited by me. (2022)')"></div>
+    <div class="masonry-item"><img src="gaobeautifulframe.jpg" alt="BEAUTIFUL VISUALIZER" onclick="openLightbox('https://www.youtube.com/embed/AeHa3LVMibs?si=aRRYmN_V6xXahMi9', 'BEAUTIFUL by Gao The Arsonist (Visualizer)', '3D modeled, textured, animated & edited by me. (2022)')"></div>
+    <div class="masonry-item"><img src="ramframe.jpg" alt="RAM VISUALIZER" onclick="openLightbox('https://www.youtube.com/embed/ZTU_PRnAPE8?si=VFneqSJjqc29hmtF', 'MORE THAN I PLANNED by ram (Lyric Video)', '3D modeled, textured, animated & edited by me. (2022)')"></div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>
+        <a href="mailto:catanzaretidominic@gmail.com">catanzaretidominic@gmail.com</a><br>
+        <a href="https://www.instagram.com/dominiccatanzareti/" target="_blank">@dominiccatanzareti</a><br>
+        NYC 
+      </p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <div class="lightbox-text">
+        <h2 id="lightbox-title"></h2>
+        <p id="lightbox-description"></p>
+      </div>
+
+      <div class="lightbox-media">
+        <img id="lightbox-image" src="" alt="" style="display: none;">
+        <div class="lightbox-video-wrapper" id="lightbox-video-wrapper">
+          <iframe id="lightbox-video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <button class="close-btn" onclick="closeLightbox()">X</button>
+  </div>
+
+  <script>
+    function isYouTube(url) {
+      return /youtube\.com|youtu\.be/.test(url);
+    }
+
+    function openLightbox(mediaSrc, title, description) {
+      const imageElement  = document.getElementById('lightbox-image');
+      const videoWrapper  = document.getElementById('lightbox-video-wrapper');
+      const videoElement  = document.getElementById('lightbox-video');
+      const lightbox      = document.getElementById('lightbox');
+
+      lightbox.setAttribute('data-media', mediaSrc);
+
+      if (isYouTube(mediaSrc)) {
+        imageElement.style.display = 'none';
+        videoWrapper.style.display = 'block';
+        videoElement.src = mediaSrc;
+      } else {
+        videoWrapper.style.display = 'none';
+        videoElement.src = '';
+        imageElement.style.display = 'block';
+        imageElement.src = mediaSrc;
+      }
+
+      document.getElementById('lightbox-title').innerText = title || '';
+      document.getElementById('lightbox-description').innerText = description || '';
+      lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      const videoElement = document.getElementById('lightbox-video');
+      const videoWrapper = document.getElementById('lightbox-video-wrapper');
+
+      videoElement.src = '';
+      videoWrapper.style.display = 'none';
+      document.getElementById('lightbox').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
